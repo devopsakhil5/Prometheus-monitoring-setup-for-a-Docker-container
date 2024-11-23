@@ -1,0 +1,18 @@
+---
+version: '3.8'
+services:
+  csvserver:
+    image: infracloudio/csvserver:latest
+    container_name: test231102
+    ports:
+      - 9393:9300
+    volumes:
+      - /home/ubuntu/csvserver/inputdata/inputFile:/csvserver/inputdata
+    env_file:
+      - ./csvserver.env
+
+secrets:
+  csvserver.env:
+     file: ./csvserver.env
+
+...
