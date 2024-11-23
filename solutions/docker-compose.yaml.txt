@@ -1,0 +1,26 @@
+---
+version: '3.8'
+services:
+  csvserver:
+    image: infracloudio/csvserver:latest
+    container_name: test231102
+    ports:
+      - 9393:9300
+    volumes:
+      - /home/ubuntu/csvserver/inputdata/inputFile:/csvserver/inputdata
+    env_file:
+      - ./csvserver.env
+  prom:
+    image: prom/prometheus:v2.45.2
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - csvserver
+secrets:
+  csvserver.env:
+     file: ./csvserver.env
+
+...
